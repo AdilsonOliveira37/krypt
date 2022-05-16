@@ -26,3 +26,6 @@ dist-ssr
 # .lock
 *.lock-wscript
 *.lock
+
+# env
+.env
