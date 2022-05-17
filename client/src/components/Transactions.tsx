@@ -1,7 +1,6 @@
 import { useContext, useId } from 'react';
 import { TransactionContext } from '../contexts/TransactionContext';
 import { useFetch } from '../hooks/useFetch';
-import dummyData from '../utils/dummyData';
 import { shortenAddress } from '../utils/shortenAddress';
 
 type TransactionCardProps = {
@@ -10,8 +9,8 @@ type TransactionCardProps = {
   timestamp: string;
   message?: string;
   keyword?: string;
-  amount: string;
-  url: string;
+  amount: number;
+  url?: string;
 };
 
 const TransactionCard = ({ addressTo, addressFrom, timestamp, message, keyword, amount, url }: TransactionCardProps) => {
@@ -64,8 +63,8 @@ const TransactionCard = ({ addressTo, addressFrom, timestamp, message, keyword, 
 }
 
 export const Transactions: React.FC = () => {
-  const { currentAccount } = useContext(TransactionContext);
-
+  const { currentAccount, transactions } = useContext(TransactionContext);
+  const uid = useId();
 
   return (
     <div className="flex w-full justify-center items-center 2xl:px-20 gradient-bg-transactions">
@@ -81,8 +80,8 @@ export const Transactions: React.FC = () => {
         )}
 
         <div className="flex flex-wrap justify-center items-center mt-10">
-          {dummyData.reverse().map(transaction => (
-            <TransactionCard key={transaction.id} {...transaction} />
+          {transactions.reverse().map(transaction => (
+            <TransactionCard key={uid} {...transaction} />
           ))}
         </div>
       </div>

@@ -24,7 +24,13 @@ const Input = ({ handleChange, name = 'default', ...props }: InputProps) => {
 }
 
 export const Welcome: React.FC = () => {
-  const { connectWallet, currentAccount, formData, setFormData, handleChange, sendTransaction } = useContext(TransactionContext);
+  const { connectWallet,
+    currentAccount,
+    formData,
+    handleChange,
+    sendTransaction,
+    isLoading
+  } = useContext(TransactionContext);
 
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     const { addressTo, amount, keyword, message } = formData;
@@ -106,8 +112,7 @@ export const Welcome: React.FC = () => {
             <Input placeholder="Enter Message" name="message" type="text" handleChange={handleChange} />
 
             <div className="h-[1px] w-full bg-gray-400 my-2" />
-
-            {false ? (
+            {isLoading ? (
               <Loader />
             ) : (
               <button
